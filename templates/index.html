@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+<!-- We've extended/inherited the template from base.html for use here -->
+
+<!-- filling in the head block-->
+{% block head %}
+<title> Task Master </title>
+{% endblock%}
+
+<!-- filling in the body block -->
+{% block body %}
+<div id="content" align="center">
+    <h1 align = "center"> Task Master </h1>
+
+    {% if tasks|length < 1%}
+    <h3> No tasks added yet :) </h3> 
+    {% else %}
+    <table border="1">
+        <tr>
+            <th> Task ID </th>
+            <th> Task Content </th>
+            <th> Date of Creation </th>
+            <th> Actions </th>
+        </tr>
+        
+        {% for task in tasks%}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}"> Delete </a>
+                    <br>
+                    <a href="/update/{{task.id}}"> Update </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="content">
+        <input type="submit" value="Add Task">
+    </form>
+</div>
+
+
+{% endblock %}
